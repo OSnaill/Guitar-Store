@@ -33,7 +33,12 @@ security:
 
     access_control:
         - { path: ^/api/login, roles: PUBLIC_ACCESS }
-        - { path: ^/api/admin,       roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api/guitars/create,       roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api/guitars/edit,       roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api/guitars/delete,       roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api/brand/create,       roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api/brand/edit,       roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api/brand/delete,       roles: IS_AUTHENTICATED_FULLY }
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
 
