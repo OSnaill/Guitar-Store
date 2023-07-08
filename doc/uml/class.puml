@@ -1,0 +1,19 @@
+@startuml diagram_de_classe
+class User {
+- email
+- password
+- token
+}
+
+class Guitar {
+- Image
+- Reference
+- Price
+}
+
+class Brand {
+- name
+}
+
+Guitar }o---|| Brand
+@enduml
