@@ -23,8 +23,11 @@
                 </svg>
             </a>
             <p class="hidden  md:block"> | </p>
-            <router-link to="/login" class="hidden  md:block" :class="currentRouteName() == 'login'  ? 'text-dark-yellow' : '' " v-if="isConnected()"> connexion </router-link>
-            <p> Connecté </p>
+            <router-link to="/login" class="hidden  md:block" :class="currentRouteName() == 'login'  ? 'text-dark-yellow' : '' " v-if="!isConnected()"> connexion </router-link>
+            <div>
+                <p v-if="isConnected()"> Connecté </p>
+                <router-link to="/back-office" class="hidden  md:block" :class="currentRouteName() == 'back-office'  ? 'text-dark-yellow' : '' "> Back Office </router-link>
+            </div>
         </section>
         <transition name="slide-fade" class="md:hidden">
             <NavDrawer :isOpen="isNavOpen" @close-nav="closeNav()" />

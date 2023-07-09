@@ -54,6 +54,16 @@
     @apply w-[18px] h-[18px]
   }
 
+  th {
+    @apply p-[10px]
+  }
+  td{
+    @apply p-[10px] content-center
+  }
+
+  table{
+    @apply content-center
+  }
   @screen md {
     body {
       font-size: 14px
