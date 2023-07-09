@@ -23,6 +23,9 @@ class Guitar
     #[ORM\JoinColumn(nullable: false)]
     private ?Brand $brand = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $image = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,6 +63,18 @@ class Guitar
     public function setBrand(?Brand $brand): static
     {
         $this->brand = $brand;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): static
+    {
+        $this->image = $image;
 
         return $this;
     }
