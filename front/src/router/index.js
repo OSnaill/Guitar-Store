@@ -28,6 +28,10 @@ const router = createRouter({
       component: AdminView
     }
   ]
+});
+router.beforeEach((to, from)=> {
+  if (to.name == 'back-office' && !localStorage.getItem('token')) 
+  {return { name: 'login' }}
 })
 
 export default router
