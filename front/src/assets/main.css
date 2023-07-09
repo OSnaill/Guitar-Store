@@ -10,12 +10,57 @@
 }
 
 @layer base {
-  *{
-    font-size: 12px;
+  body{
     font-family: 'Montserrat';
+    font-size: 12px;
   }
 
-  h1, h2{
+  h1, h2, h3, h4{
     @apply font-bold;
+  }
+  h1{
+    font-size: 3em;
+  }
+  h2{
+    font-size: 2em;
+  }
+  h3{
+    font-size: 1.5em;
+    text-decoration: underline;
+  }
+  h4{
+    font-size: 1.25em;
+  }
+
+  a{
+    @apply text-black font-bold hover:text-dark-yellow
+  }
+
+  label{
+    @apply font-bold
+  }
+  input{
+    @apply p-[10px] border border-solid rounded-lg
+  }
+
+  button{
+    @apply bg-dark-yellow p-[10px] rounded-lg border-[2px]  border-solid border-black hover:rotate-3 hover:opacity-70 duration-[0.1s]
+  }
+  button svg{
+    @apply w-auto h-auto
+  }
+
+  svg {
+    @apply w-[18px] h-[18px]
+  }
+
+  @screen md {
+    body {
+      font-size: 14px
+    }
+
+    svg {
+      @apply w-[22px] h-[22px]
+    }
   }
 }
