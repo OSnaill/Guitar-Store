@@ -4,25 +4,34 @@ namespace App\Entity;
 
 use App\Repository\GuitarRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: GuitarRepository::class)]
 class Guitar
 {
+    #[Groups('list')]
+    #[Groups('detail')]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Groups('list')]
+    #[Groups('detail')]
     #[ORM\Column(length: 100)]
     private ?string $reference = null;
 
+    #[Groups('list')]
+    #[Groups('detail')]
     #[ORM\Column]
     private ?float $price = null;
 
     #[ORM\ManyToOne(inversedBy: 'guitars')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: false, name:'brand_id')]
     private ?Brand $brand = null;
 
+    #[Groups('list')]
+    #[Groups('detail')]
     #[ORM\Column(length: 255)]
     private ?string $image = null;
 

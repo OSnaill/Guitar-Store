@@ -9,7 +9,7 @@ export default {
 
 <template>
   <main>
-    <article class="bg-gradient-to-r from-yellow-50 to-white p-[20px] flex flex-col justify-center items-center h-[400px] md:h-[500px]">
+    <article class="bg-gradient-to-r from-yellow-50 to-white p-[20px] flex flex-col justify-center items-center h-[550px] md:h-[700px] -mt-[95px]">
       <section class="max-w-[400px] flex flex-col gap-[10px]">
         <h1>
           Bienvenue sur <span class="text-dark-yellow">Guitar Store</span>
@@ -25,7 +25,7 @@ export default {
     <Infos />
   </main>
   <footer class="p-[20px] bg-black text-white">
-    <section class="max-w-[1280px] m-auto flex flex-row justify-between">
+    <section class="max-w-[1280px] m-auto flex md:flex-row flex-col justify-between">
       <div class="p-[20px]">
         <h4 class="p-[20px]"> Contact </h4>
         <div class="p-[20px]">

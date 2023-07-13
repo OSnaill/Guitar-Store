@@ -1,7 +1,7 @@
 <template>
-    <nav class="absolute w-full h-screen top-0 right-0 overflow-hidden" @Click="closeCart()" v-if="isCartOpen" >
+    <nav class="absolute w-full h-screen top-0 right-0 overflow-hidden" @Click="closeCart()" v-if="isCartOpen">
         <a href="#" @click="closeCart" class=" block w-screen h-screen top-0  z-0 bg-opacity-80"></a>
-        <div class="h-full w-5/6 md:w-1/2 bg-white rounded-l-lg z-10 absolute shadow-lg top-0 right-0">
+        <div class="h-full w-5/6 md:w-1/3 bg-white rounded-l-lg z-10 absolute shadow-lg top-0 right-0">
             <section class="p-[20px] flex flex-row justify-between">
                 <h3 >Panier</h3>
                 <a href="#" @click="closeCart()">
@@ -10,24 +10,30 @@
                 </svg>
                 </a>
             </section>
-            <section class="p-[20px]">
+            <section class="p-[20px] flex flex-col">
+                <div v-for="article, id in store.cart" class="p-[20px] max-w-[500px] border-b border-solid hover:bg-dark hover:bg-opacity-10 ">
+                    <h4>{{ article.brand_name }}</h4>
+                    <p class="italic">{{ article.reference }}</p>
+                    <p class="font-bold text-right">{{ article.price }} €</p>
+                    <a href="#" class="text-rose-700" @click="remove(article, id)"> Supprimer </a>
+                </div>
             </section>
         </div>
     </nav>
 </template>
-<script>
-export default {
-    props: {
-        isCartOpen: Boolean,
-    },
-    setup(props) {
-        console.log(props)
-    },
-    methods:{
-        closeCart(){
-            console.log('aaa')
-            this.$emit('close-cart')
-        }
-    }
+<script setup>
+import { useGuitarStore } from '@/stores/guitarStore';
+const props = defineProps({
+    isCartOpen: Boolean
+})
+const emit = defineEmits(['close-cart'])
+const store = useGuitarStore();
+function closeCart(){
+    emit('close-cart')
 }
+
+function remove(article, id){
+    store.removeFromCart(article, id)
+}
+
 </script>

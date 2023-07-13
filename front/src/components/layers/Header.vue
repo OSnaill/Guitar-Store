@@ -1,5 +1,5 @@
 <template>
-    <header class="p-[20px] flex flex-row justify-between items-center sticky top-0 bg-white bg-opacity-90">
+    <header class="p-[20px] flex flex-row justify-between items-center sticky top-0 bg-white bg-opacity-10 " id="header" :class="isScreenScrolled == true ? 'bg-opacity-90' : ''">
         <section class="flex flex-row gap-[20px] items-center">
             <a href="#" @click.prevent="openNav()" class="md:hidden">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="">
@@ -24,8 +24,8 @@
             </a>
             <p class="hidden  md:block"> | </p>
             <router-link to="/login" class="hidden  md:block" :class="currentRouteName() == 'login'  ? 'text-dark-yellow' : '' " v-if="!isConnected()"> connexion </router-link>
-            <div>
-                <p v-if="isConnected()"> Connecté </p>
+            <div v-if="isConnected()">
+                <p> Connecté </p>
                 <router-link to="/back-office" class="hidden  md:block" :class="currentRouteName() == 'back-office'  ? 'text-dark-yellow' : '' "> Back Office </router-link>
             </div>
         </section>
@@ -48,7 +48,14 @@ export default {
         return {
             isNavOpen: false,
             isCartOpen: false,
+            isScreenScrolled: false,
         }
+    },
+    created() {
+        window.addEventListener('scroll', this.handleScroll);
+    },
+    unmounted () {
+        window.removeEventListener('scroll', this.handleScroll);
     },
     methods: {
         openNav(){
@@ -59,7 +66,6 @@ export default {
             this.isNavOpen = true;
         },
         closeNav(){
-            console.log('aaa');
             this.isNavOpen = false;
         },
         openCart(){
@@ -70,7 +76,6 @@ export default {
             this.isCartOpen = true;
         },
         closeCart(){
-            console.log('aaa 22');
             this.isCartOpen = false;
         },
         currentRouteName(){
@@ -81,6 +86,16 @@ export default {
                  return true
             } 
             return false
+        },
+        handleScroll(){
+            if(window.scrollY > 300)
+            {
+                this.isScreenScrolled = true
+            }
+            if(window.scrollY < 300)
+            {
+                this.isScreenScrolled = false
+            }
         }
     }
 }

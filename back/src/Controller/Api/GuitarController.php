@@ -5,7 +5,7 @@ namespace App\Controller\Api;
 use App\Entity\Guitar;
 use App\Repository\BrandRepository;
 use App\Repository\GuitarRepository;
-use App\Service\FileUploader;
+use JMS\Serializer\Serializer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,24 +14,21 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/api/guitars', name: 'app_api_guitar_')]
 class GuitarController extends AbstractController
 {
-    #[Route('/', name:'list')]
-    public function index(GuitarRepository $guitarRepository): JsonResponse
+
+
+    #[Route('/', name:'list', methods:'GET')]
+    public function index(GuitarRepository $guitarRepository, BrandRepository $brandRepository): JsonResponse
     {
-        return $this->json($guitarRepository->findAll());
+        $guitars = $guitarRepository->findAllForShow();
+
+        return $this->json($guitars, 200,[], ['groups' => 'list'],);
     }
 
-    #[Route('/read', name:'read')]
-    public function read(GuitarRepository $guitarRepository, Request $request): JsonResponse
+    #[Route('/{id}', name:'read')]
+    public function read(GuitarRepository $guitarRepository, Guitar $guitar, BrandRepository $brandRepository): JsonResponse
     {
-        $data = json_decode($request->getContent(), true);
-
-        if(!$guitarRepository->find($data["id"]))
-        {
-            return $this->json(
-                'Not Found', 404
-            );
-        }
-        return $this->json($guitarRepository->find());
+        $singleGuitar = $guitarRepository->findForDetail($guitar->getId());
+        return $this->json($singleGuitar, 200, [], ['groups' => 'detail']);
     }
 
     #[Route('/create', name:'create', methods:['GET', 'POST'])]
