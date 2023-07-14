@@ -25,7 +25,6 @@
             <p class="hidden  md:block"> | </p>
             <router-link to="/login" class="hidden  md:block" :class="currentRouteName() == 'login'  ? 'text-dark-yellow' : '' " v-if="!isConnected()"> connexion </router-link>
             <div v-if="isConnected()" class="hidden  md:block">
-                <p> Connecté </p>
                 <router-link to="/back-office" class="hidden  md:block" :class="currentRouteName() == 'back-office'  ? 'text-dark-yellow' : '' "> Back Office </router-link>
             </div>
         </section>

@@ -13,7 +13,7 @@ export default {
       <div class="h-full w-full  bg-slate-100 flex flex-col justify-center items-center bg-opacity-30">
         <section class="max-w-[400px] flex flex-col gap-[10px] ">
           <h1>
-            Bienvenue sur <span class="text-dark-yellow">Guitar Store</span>
+            Bienvenue sur <span class="text-dark-yellow text-shadow">Guitar Store</span>
           </h1>
           <p class="font-bold"> Votre boutique de guitares de proximité </p>
           <div class="flex flex-row gap-[10px] ">

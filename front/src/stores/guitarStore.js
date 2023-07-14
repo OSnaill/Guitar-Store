@@ -3,13 +3,14 @@ import { defineStore } from 'pinia';
 import { toRaw, watch } from "vue";
 
 export const useGuitarStore = defineStore('api', {
-  
+
     state: () => {
         return {
             guitars : [],
             singleGuitar: Object,
             isLoaded: false,
-            cart: []
+            cart: [],
+            cartCount: 0
         }
     },
   
@@ -24,12 +25,12 @@ export const useGuitarStore = defineStore('api', {
         this.isLoaded = true
       },
       async pushToCart(article) {
-        localStorage.setItem(`guitar_${article.id}`, article)
         this.cart.push(article)
+        this.cartCount++
       },
       async removeFromCart(article, id) {
         this.cart.splice(id, 1);
-        console.log(this.cart)
+        this.cartCount--
       }
     },
   })

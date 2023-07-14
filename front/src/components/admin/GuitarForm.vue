@@ -1,7 +1,7 @@
 <template>
-    <article class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-[20px] border border-solid rounded-md">
+    <article class=" bg-white p-[20px] border border-solid rounded-md">
         <h3 class="p-[20px]">Ajouter une guitare</h3>
-        <form class="flex flex-row items-center gap-[20px] p-[20px]">
+        <form class="flex flex-row flex-wrap items-center gap-[20px] p-[20px]">
             <div class="flex flex-col">
             <label for="brand"> Marque </label>
             <select name="brand" id="" class="border border-solid border-dark p-[10px]" v-model="formData.brand">
@@ -11,7 +11,7 @@
             </div>
             <div class="flex flex-col">
                 <label for="brand"> Référence </label>
-                <input type="text" name="reference" id="" class="min-w-[500px]"  v-model="formData.name">
+                <input type="text" name="reference" id="" class="min-w-[500px]"  v-model="formData.reference">
             </div>
             <div class="flex flex-col">
             <label for="brand"> Prix </label>
@@ -24,16 +24,13 @@
 <script setup>
 import { ref } from 'vue';
 import axios from 'axios';
-import jwt_decode from "jwt-decode";
+import { useGuitarStore} from '@/stores/guitarStore.js';
 const formData = ref({
-    name:'',
     reference:'',
     brand:'',
     price:''
 })
-
-
-
+const guitarStore = useGuitarStore();
 // Formulaire d'ajout de guitare
 const submitForm= async () => {
     try {
@@ -44,9 +41,10 @@ const submitForm= async () => {
             }
         }
         
-        const response = await axios.post('http://localhost:8080/api/guitars/create', formData.value, config);
-        alert('Guitare ajoutée');
-        console.log(response);
+        const response = await axios.post('http://localhost:8080/api/guitars/create', formData.value, config)
+
+        
+        guitarStore.fetchGuitars();
         formData.value = {
             name:'',
             reference:'',
@@ -54,7 +52,10 @@ const submitForm= async () => {
             price:''
         };
     } catch {
-        console.error(response)
+        console.error('truc')
     }
 }
+</script>
+<script>
+
 </script>

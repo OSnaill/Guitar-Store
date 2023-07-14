@@ -1,14 +1,14 @@
 <template>
     <main>
-        <article class="max-w-[1280px] m-auto p-[20px] flex flex-row gap-[20px]">
-            <section class="p-[20px] border border-solid rounded-lg shadow-xl">
-                <div class="flex flex-row justify-between items-center">
+        <article class="max-w-[1280px] m-auto p-[20px] grid grid-cols-3 gap-[20px]">
+            <section class="p-[20px] border border-solid rounded-lg shadow-xl col-span-1">
+                <div class="flex flex-row justify-between items-center p-[20px]">
                     <h4>Marques</h4>
                     <a href="#"><Button>
                         Ajouter une Marque
                     </Button></a>
                 </div>
-                <table class="table-auto">
+                <table class="table-auto m-auto p-[20px]">
                     <thead class="font-bold border-b border-solid">
                         <tr>
                             <th> # </th>
@@ -37,14 +37,16 @@
                     </tbody>
                 </table>
             </section>
-            <section  class="p-[20px]">
+            <section class="col-span-2 flex flex-col gap-[20px]">
+                <GuitarForm />
+                <div class="p-[20px] border border-solid rounded-md">
                 <div class="flex flex-row justify-between items-center">
                     <h4>Guitares</h4>
                     <Button  @click="switchGuitarFormDisplay()">
                         Ajouter une guitare
                     </Button>
                 </div>
-                <table class="table-auto">
+                <table class="table-auto w-full">
                     <thead class="font-bold border-b border-solid">
                         <tr>
                             <th> # </th>
@@ -59,7 +61,7 @@
                         <tr v-for="guitar in guitarStore.guitars">
                             <td>{{ guitar.id }}</td>
                             <td> {{ guitar.brand_name }} </td>
-                            <td class="text-sm"> {{ guitar.reference }} </td>
+                            <td class="text-xs"> {{ guitar.reference }} </td>
                             <td> {{ guitar.price  }} €</td>
                             <td> <a href="#" >
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="m-auto fill-yellow-500">
@@ -76,10 +78,8 @@
                         </tr>
                     </tbody>
                 </table>
-            </section>
-            <div class="">
-                <GuitarForm  />
             </div>
+            </section>
         </article>
     </main>
 </template>
@@ -91,9 +91,21 @@ const guitarStore = useGuitarStore();
 
 guitarStore.fetchGuitars()
 
+function updateGuitarList()
+{
+    guitarStore.fetchGuitars()
+}
+
 let isGuitarFormOpen = false;
 function switchGuitarFormDisplay() {
-    isGuitarFormOpen ? isGuitarFormOpen = false : isGuitarFormOpen = true
+    if(isGuitarFormOpen == true)
+    {
+        isGuitarFormOpen = false
+    }
+    else if(isGuitarFormOpen == false)
+    {
+        isGuitarFormOpen = true
+    }
     console.log(isGuitarFormOpen)
 }
 

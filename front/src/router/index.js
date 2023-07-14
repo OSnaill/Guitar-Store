@@ -38,10 +38,18 @@ const router = createRouter({
 });
 router.beforeEach((to, from)=> {
 
+
   // Check si le token est expiré, dans ce cas on l'enlève du local storage
-  if(localStorage.getItem('token') && jwt_decode(localStorage.getItem('token')).exp > jwt_decode(localStorage.getItem('token')).iat )
+  if(localStorage.getItem('token'))
   {
+    const currentDate= new Date()
+    const dateToCompare = currentDate.getTime()
+    // console.log(jwt_decode(localStorage.getItem('token')).exp * 1000 < dateToCompare)
+    // console.log(currentDate.getDate(dateToCompare))
+    if(jwt_decode(localStorage.getItem('token')).exp * 1000 < dateToCompare)
+    {
       localStorage.removeItem('token')
+    }
   }
   if (to.name == 'back-office' && !localStorage.getItem('token')) 
   {
