@@ -44,7 +44,7 @@
   }
 
   button{
-    @apply bg-dark-yellow p-[10px] rounded-lg border-[2px]  border-solid border-black hover:rotate-3 hover:opacity-70 duration-[0.1s]
+    @apply bg-dark-yellow p-[10px] rounded-lg border-[2px]  border-solid border-black hover:rotate-3 hover:bg-opacity-70 duration-[0.1s]
   }
   button svg{
     @apply w-auto h-auto
@@ -72,5 +72,28 @@
     svg {
       @apply w-[22px] h-[22px]
     }
+  }
+}
+
+@layer utilities {
+  .pres{
+    background-image: url('./img/background-image.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: bottom;
+  }
+
+  .text-shadow{
+    text-shadow:  1px 0px 20px white;
+  }
+
+  header.bgdisplay{
+    transition: ease-in-out 0.1s;
+    @apply bg-opacity-70 bg-white hover:bg-opacity-100
+  }
+
+  
+  .onDisplay.onDisplay{
+    display: block;
   }
 }

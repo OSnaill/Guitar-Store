@@ -6,7 +6,7 @@
             <!-- On boucle sur le tableau de guitares -->
             <div v-for="guitar in store.guitars" :key="guitar.id">
             <router-link router-link :to="`/article/${guitar.id}`"   >
-              <ArticleCard :id="guitar.id" :brand="guitar.name" :content="guitar.reference" :price="guitar.price" :image="guitar.image" />
+              <ArticleCard :id="guitar.id" :brand="guitar.brand_name" :content="guitar.reference" :price="guitar.price" :image="guitar.image" />
             </router-link>
             </div>
           </div>

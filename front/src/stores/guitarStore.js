@@ -1,8 +1,9 @@
 import axios from "axios";
 import { defineStore } from 'pinia';
-import { toRaw } from "vue";
+import { toRaw, watch } from "vue";
 
 export const useGuitarStore = defineStore('api', {
+  
     state: () => {
         return {
             guitars : [],

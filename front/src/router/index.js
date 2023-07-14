@@ -4,6 +4,7 @@ import CatalogueView from '../views/CatalogueView.vue'
 import LoginView from '../views/LoginView.vue'
 import AdminView from '../views/AdminView.vue'
 import ArticleView from '../views/ArticleView.vue'
+import jwt_decode from "jwt-decode";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -36,8 +37,16 @@ const router = createRouter({
   ]
 });
 router.beforeEach((to, from)=> {
+
+  // Check si le token est expiré, dans ce cas on l'enlève du local storage
+  if(localStorage.getItem('token') && jwt_decode(localStorage.getItem('token')).exp > jwt_decode(localStorage.getItem('token')).iat )
+  {
+      localStorage.removeItem('token')
+  }
   if (to.name == 'back-office' && !localStorage.getItem('token')) 
-  {return { name: 'login' }}
+  {
+    return { name: 'login' }
+  }
 })
 
 export default router

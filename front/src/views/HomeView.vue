@@ -9,17 +9,19 @@ export default {
 
 <template>
   <main>
-    <article class="bg-gradient-to-r from-yellow-50 to-white p-[20px] flex flex-col justify-center items-center h-[550px] md:h-[700px] -mt-[95px]">
-      <section class="max-w-[400px] flex flex-col gap-[10px]">
-        <h1>
-          Bienvenue sur <span class="text-dark-yellow">Guitar Store</span>
-        </h1>
-        <p> Votre boutique de guitares de proximité </p>
-        <div class="flex flex-row gap-[10px] ">
-          <a href="#"><button class="text-black"> Rechercher </button></a>
-          <a><button class="bg-white text-black"> à propos </button></a>
-        </div>
-      </section>
+    <article class="  h-[550px] md:h-[700px] -mt-[95px] pres">
+      <div class="h-full w-full  bg-slate-100 flex flex-col justify-center items-center bg-opacity-30">
+        <section class="max-w-[400px] flex flex-col gap-[10px] ">
+          <h1>
+            Bienvenue sur <span class="text-dark-yellow">Guitar Store</span>
+          </h1>
+          <p class="font-bold"> Votre boutique de guitares de proximité </p>
+          <div class="flex flex-row gap-[10px] ">
+            <a href="#"><button class="text-black"> Rechercher </button></a>
+            <a><button class="bg-white text-black"> à propos </button></a>
+          </div>
+        </section>
+      </div>
     </article>
     <ArticleList />
     <Infos />

@@ -1,5 +1,5 @@
 <template>
-    <header class="p-[20px] flex flex-row justify-between items-center sticky top-0 bg-white bg-opacity-10 " id="header" :class="isScreenScrolled == true ? 'bg-opacity-90' : ''">
+    <header class="p-[20px] flex flex-row justify-between items-center sticky top-0 duration-75" id="header" :class="isScreenScrolled == true ? 'bgdisplay' : ''">
         <section class="flex flex-row gap-[20px] items-center">
             <a href="#" @click.prevent="openNav()" class="md:hidden">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="">
@@ -24,7 +24,7 @@
             </a>
             <p class="hidden  md:block"> | </p>
             <router-link to="/login" class="hidden  md:block" :class="currentRouteName() == 'login'  ? 'text-dark-yellow' : '' " v-if="!isConnected()"> connexion </router-link>
-            <div v-if="isConnected()">
+            <div v-if="isConnected()" class="hidden  md:block">
                 <p> Connecté </p>
                 <router-link to="/back-office" class="hidden  md:block" :class="currentRouteName() == 'back-office'  ? 'text-dark-yellow' : '' "> Back Office </router-link>
             </div>
@@ -33,7 +33,7 @@
             <NavDrawer :isOpen="isNavOpen" @close-nav="closeNav()" />
         </transition>
         <transition name="slide-in">
-            <Cart :isCartOpen="isCartOpen" @close-cart="closeCart()"/>
+            <Cart :isCartOpen="isCartOpen" @close-cart="closeCart()" class="overflow-hidden"/>
         </transition>
     </header>
 
