@@ -1,5 +1,6 @@
 import axios from "axios";
 import { defineStore } from 'pinia';
+import { stringify } from "postcss";
 import { toRaw, watch } from "vue";
 
 export const useGuitarStore = defineStore('api', {
@@ -9,11 +10,11 @@ export const useGuitarStore = defineStore('api', {
             guitars : [],
             singleGuitar: Object,
             isLoaded: false,
-            cart: [],
+            cart: localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [],
             cartCount: 0
         }
     },
-  
+
     actions: {
       async fetchGuitars() {
         const response = await axios.get('http://localhost:8080/api/guitars/')
@@ -26,10 +27,13 @@ export const useGuitarStore = defineStore('api', {
       },
       async pushToCart(article) {
         this.cart.push(article)
+        console.log(JSON.stringify(this.cart))
+        localStorage.setItem('cart', JSON.stringify(this.cart))
         this.cartCount++
       },
       async removeFromCart(article, id) {
         this.cart.splice(id, 1);
+        localStorage.setItem('cart', JSON.stringify(this.cart))
         this.cartCount--
       }
     },
