@@ -1,12 +1,11 @@
 <template>
-    <article class=" bg-white p-[20px] border border-solid rounded-md">
-        <h3 class="p-[20px]">Ajouter une guitare</h3>
-        <form class="flex flex-row flex-wrap items-center gap-[20px] p-[20px]">
+    <article class=" bg-white p-4 border border-solid rounded-md">
+        <h3 class="p-4">Ajouter une guitare</h3>
+        <form class="flex flex-row flex-wrap items-end gap-4 p-4">
             <div class="flex flex-col">
             <label for="brand"> Marque </label>
             <select name="brand" id="" class="border border-solid border-dark p-[10px]" v-model="formData.brand">
-                <option value="Fender"> Fender </option>
-                <option value="Ibanez"> Ibanez </option>
+                <option :value="brand.name" v-for=" brand in brandStore.brands"> {{ brand.name }} </option>
             </select>
             </div>
             <div class="flex flex-col">
@@ -25,12 +24,16 @@
 import { ref } from 'vue';
 import axios from 'axios';
 import { useGuitarStore} from '@/stores/guitarStore.js';
+import { useBrandStore } from '@/stores/brandStore.js';
+
 const formData = ref({
     reference:'',
     brand:'',
     price:''
 })
 const guitarStore = useGuitarStore();
+const brandStore = useBrandStore();
+
 // Formulaire d'ajout de guitare
 const submitForm= async () => {
     try {

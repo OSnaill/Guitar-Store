@@ -1,9 +1,8 @@
 import axios from "axios";
 import { defineStore } from 'pinia';
-import { stringify } from "postcss";
-import { toRaw, watch } from "vue";
+import { ref, toRaw } from "vue"; 
 
-export const useGuitarStore = defineStore('api', {
+export const useGuitarStore = defineStore('guitarStore', {
 
     state: () => {
         return {
@@ -11,7 +10,8 @@ export const useGuitarStore = defineStore('api', {
             singleGuitar: Object,
             isLoaded: false,
             cart: localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [],
-            cartCount: 0
+            cartCount: 0,
+            maxValue: 0,
         }
     },
 
@@ -20,10 +20,22 @@ export const useGuitarStore = defineStore('api', {
         const response = await axios.get('http://localhost:8080/api/guitars/')
         this.guitars = response.data
       },
+      async fetchAllGuitars() {
+        const response = await axios.get('http://localhost:8080/api/guitars/all')
+        this.guitars = response.data
+      },
+      async fetchFilteredGuitars(brand, price = 0) {
+
+          const response = await axios.get(`http://localhost:8080/api/guitars/filter?brand=${brand}&price=0`)
+          console.log('data :',response.data)
+          this.guitars = response.data
+        
+      },
       async fetchOneGuitar(id) {
         const response = await axios.get(`http://localhost:8080/api/guitars/${id}`)
         this.singleGuitar = await toRaw(response.data[0])
         this.isLoaded = true
+        return this.singleGuitar
       },
       async pushToCart(article) {
         this.cart.push(article)
@@ -35,6 +47,27 @@ export const useGuitarStore = defineStore('api', {
         this.cart.splice(id, 1);
         localStorage.setItem('cart', JSON.stringify(this.cart))
         this.cartCount--
+      },
+      async getMaxGuitarValue() {
+        let max = 0
+        this.guitars.forEach(guitar => {
+          if(guitar.price >= max)
+          {
+            max = guitar.price
+          }
+       
+        });
+        this.maxValue = max
       }
     },
+    getters: {
+      async getTotalCartAmount() {
+        let amount = 0
+        this.cart.forEach(element => {
+          amount += element.price
+        });
+        return amount
+      },
+
+  }
   })

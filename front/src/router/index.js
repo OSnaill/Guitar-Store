@@ -1,9 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import CatalogueView from '../views/CatalogueView.vue'
 import LoginView from '../views/LoginView.vue'
 import AdminView from '../views/AdminView.vue'
-import ArticleView from '../views/ArticleView.vue'
+import SearchView from '../views/SearchView.vue'
 import jwt_decode from "jwt-decode";
 
 const router = createRouter({
@@ -15,16 +14,6 @@ const router = createRouter({
       component: HomeView,
     },
     {
-      path: '/article/:id',
-      name: 'article',
-      component: ArticleView,
-    },
-    {
-      path: '/catalogue',
-      name: 'catalogue',
-      component: CatalogueView,
-    },
-    {
       path: '/login',
       name: 'login',
       component: LoginView,
@@ -33,6 +22,11 @@ const router = createRouter({
       path: '/back-office',
       name: 'back-office',
       component: AdminView
+    },
+    {
+      path: '/search',
+      name: 'search',
+      component: SearchView
     }
   ]
 });

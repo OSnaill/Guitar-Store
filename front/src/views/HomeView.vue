@@ -17,7 +17,7 @@ export default {
           </h1>
           <p class="font-bold"> Votre boutique de guitares de proximité </p>
           <div class="flex flex-row gap-[10px] ">
-            <a href="#"><button class="text-black"> Rechercher </button></a>
+            <router-link to="/search" class="hidden  md:block" ><a href="#"><button class="text-black"> Rechercher </button></a></router-link>
             <a><button class="bg-white text-black"> à propos </button></a>
           </div>
         </section>
@@ -26,23 +26,4 @@ export default {
     <ArticleList />
     <Infos />
   </main>
-  <footer class="p-[20px] bg-black text-white">
-    <section class="max-w-[1280px] m-auto flex md:flex-row flex-col justify-between">
-      <div class="p-[20px]">
-        <h4 class="p-[20px]"> Contact </h4>
-        <div class="p-[20px]">
-          <p>@: <span class="text-dark-yellow font-bold">john.doe@gmail.com</span></p>
-          <p>tel: <span class="text-dark-yellow font-bold">01.02.03.04.05</span></p>
-        </div>
-      </div>
-      <div>
-        <h4 class="p-[20px]"> Développeur </h4>
-        <div class="p-[20px] flex flex-col">
-          <p>Souquière Boris</p>
-          <a href="https://github.com/OSnaill" class="text-white" target="_blank">Github</a>
-          <a href="https://www.linkedin.com/in/souquiere-boris/" class="text-white" target="_blank">Linkedin</a>
-        </div>
-      </div>
-    </section>
-  </footer>
 </template>
