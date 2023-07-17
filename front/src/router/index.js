@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/LoginView.vue'
 import AdminView from '../views/AdminView.vue'
+import EditView from '../views/EditView.vue'
 import SearchView from '../views/SearchView.vue'
 import jwt_decode from "jwt-decode";
 
@@ -22,6 +23,11 @@ const router = createRouter({
       path: '/back-office',
       name: 'back-office',
       component: AdminView
+    },
+    {
+      path: '/edit/:id',
+      name: 'edit',
+      component: EditView
     },
     {
       path: '/search',

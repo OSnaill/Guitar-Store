@@ -1,8 +1,8 @@
 <template>
     <nav class="absolute w-full h-screen top-0 left-0" @Click="closeCart()" v-if="isCartOpen">
         <a href="#" @click.prevent="closeCart" class=" block w-full h-screen top-0  z-0 bg-opacity-80"></a>
-        <div class="flex flex-col gap-[10px] absolute  top-4 bottom-[20px]  w-5/6 md:w-1/3 right-0">
-            <div class="h-[600px]  bg-white rounded-l-lg z-10  shadow-lg overflow-y-scroll border border-solid custom-scrollbar">
+        <div class=" absolute  top-4 bottom-[20px]  w-5/6 md:w-1/3 right-0">
+            <div class="h-[600px]  bg-white rounded-l-lg z-10  shadow-lg overflow-y-scroll border border-solid">
                 <section class="p-4 flex flex-row justify-between">
                     <h3 >Panier</h3>
                     <a href="#" @click.prevent="closeCart()">
@@ -19,9 +19,6 @@
                         <a href="#" class="text-rose-700" @click.prevent="remove(article, id)"> Supprimer </a>
                     </div>
                 </section>
-            </div>
-            <div class="bg-white flex flex-row p-4 border border-solid">
-                <h4> Prix total: {{ store.getTotalCartAmount }} € </h4>
             </div>
         </div>
     </nav>

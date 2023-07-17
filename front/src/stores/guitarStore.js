@@ -11,6 +11,7 @@ export const useGuitarStore = defineStore('guitarStore', {
             isLoaded: false,
             cart: localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [],
             cartCount: 0,
+            cartAmount: 0,
             maxValue: 0,
         }
     },
@@ -22,6 +23,7 @@ export const useGuitarStore = defineStore('guitarStore', {
       },
       async fetchAllGuitars() {
         const response = await axios.get('http://localhost:8080/api/guitars/all')
+        await this.getMaxGuitarValue()
         this.guitars = response.data
       },
       async fetchFilteredGuitars(brand, price = 0) {
@@ -58,16 +60,17 @@ export const useGuitarStore = defineStore('guitarStore', {
        
         });
         this.maxValue = max
-      }
-    },
-    getters: {
-      async getTotalCartAmount() {
+      },
+      async getCartAmount()
+      {
         let amount = 0
         this.cart.forEach(element => {
           amount += element.price
         });
         return amount
-      },
+      }
+    },
+    getters: {
 
-  }
+    }
   })

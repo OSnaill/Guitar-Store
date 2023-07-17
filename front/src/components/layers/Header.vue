@@ -43,7 +43,6 @@
 <script setup>
 import { useGuitarStore } from '@/stores/guitarStore';
 const store = useGuitarStore();
-
 </script>
 <script>
 import NavDrawer from './NavDrawer.vue';

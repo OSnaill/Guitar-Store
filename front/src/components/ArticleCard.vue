@@ -6,7 +6,7 @@
         <!-- <div class="w-1/3 md:w-full md:h-[150px] bg-dark-yellow  ">
             <p class="text-center">image</p>
         </div> -->
-        <img :src=" guitar.image ? `http://localhost:8080/guitars/${guitar.image}` : '/src//assets/img/base_guitar.png'" alt="image guitare" class=" h-[75px] w-full md:h-[100px] bg-white object-contain ">
+        <img :src=" guitar.image_name ? `http://localhost:8080/guitars/${guitar.image_name}` : '/src//assets/img/base_guitar.png'" alt="image guitare" class=" h-[75px] w-full md:h-[100px] bg-white object-contain ">
         <div class="w-full md:h-auto bg-white flex flex-col gap-4">
             <h4> {{guitar.brand_name}} </h4>
             <p> {{guitar.reference}} </p>
