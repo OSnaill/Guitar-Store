@@ -26,12 +26,10 @@ export const useGuitarStore = defineStore('guitarStore', {
         await this.getMaxGuitarValue()
         this.guitars = response.data
       },
-      async fetchFilteredGuitars(brand, price = 0) {
-
-          const response = await axios.get(`http://localhost:8080/api/guitars/filter?brand=${brand}&price=0`)
+      async fetchFilteredGuitars(brand) {
+          const response = await axios.get(`http://localhost:8080/api/guitars/filter?brand=${brand}`)
           console.log('data :',response.data)
           this.guitars = response.data
-        
       },
       async fetchOneGuitar(id) {
         const response = await axios.get(`http://localhost:8080/api/guitars/${id}`)

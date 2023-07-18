@@ -41,16 +41,14 @@ brandStore.fetchBrands();
 
 const formData = reactive({
     id: useRoute().params.id,
-    reference:'test',
+    reference:'',
     brand:'',
     price:'',
     image: null
 })
 
 function onChangeFile(e) {
-    console.log(e.target.files[0])
     formData.image = e.target.files[0]
-    console.log(formData.image)
 }
 // Formulaire d'ajout de guitare
 const submitForm= async () => {
@@ -70,11 +68,6 @@ const submitForm= async () => {
         formDataToSend.append('price', formData.price);
         formDataToSend.append('image', formData.image);
 
-
-        console.log(formDataToSend.get('image'))
-        // console.log('image', formDataToSend.get('image'))
-
-        // Symfony a un souci avec les méthodes put/patch, le controller ne reçoit pas les données, donc on doit passer par post
         const response = await axios.post(`http://localhost:8080/api/guitars/${formDataToSend.get('id')}/edit`, formDataToSend, config)
 
         console.log(response)

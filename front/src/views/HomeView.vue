@@ -18,7 +18,6 @@ export default {
           <p class="font-bold"> Votre boutique de guitares de proximité </p>
           <div class="flex flex-row gap-[10px] ">
             <router-link to="/search" class="hidden  md:block" ><a href="#"><button class="text-black"> Rechercher </button></a></router-link>
-            <a><button class="bg-white text-black"> à propos </button></a>
           </div>
         </section>
       </div>

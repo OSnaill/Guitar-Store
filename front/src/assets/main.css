@@ -10,7 +10,7 @@
 }
 
 @layer base {
-  body{
+  body, header{
     font-family: 'Montserrat';
     font-size: 12px;
   }
@@ -113,7 +113,7 @@
 
   header.bgdisplay{
     transition: ease-in-out 0.1s;
-    @apply bg-opacity-70 bg-white hover:bg-opacity-100
+    @apply bg-opacity-90 bg-white hover:bg-opacity-100
   }
     
   .onDisplay.onDisplay{

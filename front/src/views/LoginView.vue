@@ -20,6 +20,10 @@
     </main>
 </template>
 <script>
+import router from '@/router';
+
+// import { Router } from 'vue-router';
+
 export default {
   data() {
     return {
@@ -49,6 +53,7 @@ export default {
           // Faites quelque chose avec le token JWT reçu, comme le stocker dans le local storage ou dans le state Vuex.
           localStorage.setItem('token',token);
           console.log('Token JWT:', token);
+          router.push('/')
         } else {
           console.log('Échec de la connexion');
           console.log(this.credentials)

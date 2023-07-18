@@ -1,5 +1,5 @@
 <template>
-    <header class="p-4 flex flex-row justify-between items-center sticky top-0 left-0 duration-75" id="header" :class="isScreenScrolled == true ? 'bgdisplay' : ''">
+    <header class="p-4 flex flex-row justify-between items-center sticky top-0 left-0 duration-70" id="header" :class="isScreenScrolled == true ? 'bgdisplay' : ''">
         <section class="flex flex-row gap-4 items-center">
             <a href="#" @click.prevent="openNav()" class="md:hidden">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="">

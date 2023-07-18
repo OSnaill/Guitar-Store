@@ -12,8 +12,7 @@
             </section>
             <section class="p-4 flex flex-col">
                 <router-link class="p-4 text-lg" to="/"  :class="currentRouteName() == 'home'  ? 'text-dark-yellow' : '' "> Accueil</router-link>
-                <router-link class="p-4 text-lg" to="/catalogue"  :class="currentRouteName() == 'catalogue'  ? 'text-dark-yellow' : '' "> guitares </router-link>
-                <router-link class="p-4 text-lg" to="/login"  :class="currentRouteName() == 'login'  ? 'text-dark-yellow' : '' "> connexion </router-link>
+                <router-link class="p-4 text-lg" to="/search"  :class="currentRouteName() == 'search'  ? 'text-dark-yellow' : '' "> Rechercher</router-link>
             </section>
         </div>
     </nav>

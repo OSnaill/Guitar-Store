@@ -1,6 +1,6 @@
 <template>
-    <aside class="max-w-[1280px] m-auto grid grid-cols-1 md:grid-cols-2">
-      <section class="p-4">
+    <aside class="max-w-[1280px] m-auto flex flex-col md:flex-row justify-between">
+      <section class="p-4 w-1/2">
         <h2 class="p-4"> Horaires </h2>
         <div class="flex flex-col gap-[10px] p-4">
           <div class="p-4 flex flex-row justify-between items-center text-white bg-dark">
@@ -40,12 +40,12 @@
           </div>
         </div>
       </section>
-      <section class=" max-w-[1280px] max-h-[500px] p-4">
+      <section class=" max-w-[1280px] max-h-[500px] p-4 w-1/2">
         <h2 class="p-4"> Adresse </h2>
-        <div class="max-h-[500px]">
-            <p class="p-4 text-center"> Saint-brieuc, 20 Rue de la guitare. </p>
-            <div class="w-full ">
-                <img src="../assets/img/map.png" class=" h-full object-contain m-auto rounded-md">
+        <div class="max-h-[500px] flex flex-row gap-4 p-4">
+            <p class="text-left"> Saint-brieuc, 20 Rue de la guitare. </p>
+            <div class="h-full">
+                <img src="../assets/img/map.png" class="  object-contain m-auto rounded-md">
             </div>
         </div>
     </section>
