@@ -21,7 +21,7 @@ class Brand
     #[ORM\Column(length: 25)]
     private ?string $name = null;
 
-    #[Groups(['brand_list', 'list'])]
+    #[Groups(['list'])]
     #[ORM\OneToMany(mappedBy: 'brand', targetEntity: Guitar::class)]
     private Collection $guitars;
 

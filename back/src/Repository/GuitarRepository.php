@@ -41,31 +41,73 @@ class GuitarRepository extends ServiceEntityRepository
 
     public function findAllForShow()
     {
-        $entityManager = $this->getEntityManager();
+        $conn = $this->getEntityManager()->getConnection();
 
-        $query = $entityManager->createQuery(
-            'SELECT g.id, g.reference, g.price, g.image, b.name
-            FROM App\Entity\Guitar g
-            JOIN App\Entity\Brand b
-            WHERE g.brand = b.id
-            '
-        )->setMaxResults(8);
+        $sql = '
+        SELECT g.*, b.name AS brand_name  FROM guitar g
+        LEFT JOIN brand b
+        ON g.brand_id = b.id
+        ORDER BY g.id DESC
+        ';
 
-        // returns an array of Product objects
-        return $query->getResult();
+        $resultSet = $conn->executeQuery($sql);
+
+        // returns an array of arrays (i.e. a raw data set)
+        return $resultSet->fetchAllAssociative();
     }
+    public function findFilteredGuitars(string $brand = null, float $price = 0)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        if($price == 0)
+        {
+            
+            $sql = "
+            SELECT g.*, b.name AS brand_name  FROM guitar g
+            JOIN brand b
+            WHERE b.name = :brand
+            AND g.brand_id = b.id
+            ORDER BY g.id DESC
+            ";
+            $resultSet = $conn->executeQuery($sql, ["brand"  => $brand]);
+        } else {
+            $sql = '
+            SELECT g.*, b.name AS brand_name  FROM guitar g
+            LEFT JOIN brand b
+            ON g.brand_id = b.id
+            ORDER BY g.id DESC
+            WHERE b.name = :brand
+            AND g.price <= :price 
+            ';
+            $resultSet = $conn->executeQuery($sql, [':brand' => $brand, ':price' => $price]);
+        }
+
+       
+
+        // returns an array of arrays (i.e. a raw data set)
+        return $resultSet->fetchAllAssociative();
+    }
+
+    public function findEightForShow()
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+        SELECT g.*, b.name AS brand_name  FROM guitar g
+        LEFT JOIN brand b
+        ON g.brand_id = b.id
+        ORDER BY g.id DESC
+        LIMIT 4
+        ';
+
+        $resultSet = $conn->executeQuery($sql);
+
+        // returns an array of arrays (i.e. a raw data set)
+        return $resultSet->fetchAllAssociative();
+    }
+
     public function findForDetail($id)
     {
-        $entityManager = $this->getEntityManager();
-
-        $query = $entityManager->createQuery(
-            'SELECT g.id, g.reference, g.price, g.image, b.id, b.name
-            FROM App\Entity\Guitar g
-            JOIN App\Entity\Brand b
-            WHERE g.brand = b.id
-            AND g.id = :id
-            '
-        )->setMaxResults(8)->setParameter(':id', $id);
 
         $conn = $this->getEntityManager()->getConnection();
 
@@ -82,7 +124,6 @@ class GuitarRepository extends ServiceEntityRepository
         // returns an array of arrays (i.e. a raw data set)
         return $resultSet->fetchAllAssociative();
         // returns an array of Product objects
-        return $query->getResult();
     }
 //    public function findOneBySomeField($value): ?Guitar
 //    {
