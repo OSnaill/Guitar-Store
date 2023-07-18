@@ -5,69 +5,129 @@ namespace App\Controller\Api;
 use App\Entity\Guitar;
 use App\Repository\BrandRepository;
 use App\Repository\GuitarRepository;
-use App\Service\FileUploader;
+use JMS\Serializer\Serializer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/api/guitars', name: 'app_api_guitar_')]
 class GuitarController extends AbstractController
 {
-    #[Route('/', name:'list')]
-    public function index(GuitarRepository $guitarRepository): JsonResponse
+
+
+    #[Route('/', name:'index', methods:'GET')]
+    public function index(GuitarRepository $guitarRepository, BrandRepository $brandRepository): JsonResponse
     {
-        return $this->json($guitarRepository->findAll());
+        $guitars = $guitarRepository->findEightForShow();
+
+        return $this->json($guitars, 200,[], ['groups' => 'list'],);
     }
 
-    #[Route('/read', name:'read')]
-    public function read(GuitarRepository $guitarRepository, Request $request): JsonResponse
+    #[Route('/all', name:'all', methods:'GET')]
+    public function showAll(GuitarRepository $guitarRepository, BrandRepository $brandRepository): JsonResponse
     {
-        $data = json_decode($request->getContent(), true);
+        $guitars = $guitarRepository->findAllForShow();
 
-        if(!$guitarRepository->find($data["id"]))
-        {
-            return $this->json(
-                'Not Found', 404
-            );
-        }
-        return $this->json($guitarRepository->find());
+        return $this->json($guitars, 200,[], ['groups' => 'list'],);
     }
 
-    #[Route('/create', name:'create', methods:['GET', 'POST'])]
-    public function create(GuitarRepository $guitarRepository, BrandRepository $brandRepository, Request $request): JsonResponse
+    #[Route('/filter', name:'filter', methods:'GET')]
+    public function filter(GuitarRepository $guitarRepository, BrandRepository $brandRepository, Request $request): JsonResponse
+    {
+        $brand = $request->query->get('brand');
+        $price = $request->query->get('price');
+        $guitars = $guitarRepository->findFilteredGuitars($brand);
+        return $this->json($guitars, 200,[], ['groups' => 'list'],);
+    }
+
+    #[Route('/{id}/read', name:'read', methods:'GET')]
+    public function read(GuitarRepository $guitarRepository, Guitar $guitar, BrandRepository $brandRepository): JsonResponse
+    {
+        $singleGuitar = $guitarRepository->findForDetail($guitar->getId());
+        return $this->json($singleGuitar, 200, [], ['groups' => 'detail']);
+    }
+
+    #[Route('/create', name:'create', methods:['GET','POST'])]
+    public function create(GuitarRepository $guitarRepository, BrandRepository $brandRepository, Request $request, SluggerInterface $slugger): JsonResponse
     { 
         $data = json_decode($request->getContent(), true);
+       
+        $imageFile = $request->files->get('image');
 
-        if($guitarRepository->findBy(['reference' => $data['ref']]))
-        {
-            return $this->json(
-                'Already exist',
-                303
-            );
-        }
-
-        if(!$brandRepository->find($data['brand_id']))
-        {
-            return $this->json(
-                'Brand doesn\'t exist',
-                303
-            );
-        }
 
         $newGuitar = new Guitar();
-        $newGuitar->setReference($data['ref']);
-        $newGuitar->setBrand($brandRepository->find($data["brand_id"]));
-        if($request->files->get('image'))
+        $newGuitar->setReference($request->request->get('reference'));
+        
+        $newGuitar->setPrice($request->request->get('price'));
+        
+        $newGuitar->setBrand($brandRepository->findOneBy(['name' => $request->request->get('brand')]));
+        if($imageFile)
         {
-            // $brochureFileName = $fileUploader->upload($request->files->get('image'));
-            // $newGuitar->setImage($brochureFileName);
-        } else {
-            $newGuitar->setImage('/guitars/guitar_base.png');
-        }       
+            $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
+            $safeFilename = $slugger->slug($originalFilename);
+            $newFilename = $safeFilename.'-'.uniqid().'.'.$imageFile->guessExtension();
+            $imageFile->move(
+                $this->getParameter('brochures_directory'),
+                $newFilename
+            );
+        }
+        $newGuitar->setImageName($newFilename);
+        // return $this->json(['message' => 'Okay']);
+        $guitarRepository->save($newGuitar, true);
+        return $this->json(['message' => 'Okay']);
+    }
 
-        return $this->json(
-            $newGuitar->getImage()
-        );
+
+    #[Route('/{id}/edit', name:'edit', methods:['GET','POST'])]
+    public function edit(GuitarRepository $guitarRepository, BrandRepository $brandRepository, Request $request, SluggerInterface $slugger, $id): JsonResponse
+    { 
+        $data = json_decode($request->getContent(), true);
+       
+        
+        $imageFile = $request->files->get('image');
+
+        $guitar = $guitarRepository->find($id);
+
+        if($request->request->get('reference') != null)
+        {
+            $guitar->setReference($request->request->get('reference'));
+        }
+        
+        if($request->request->get('price') != null)
+        {
+            $guitar->setPrice($request->request->get('price'));
+        }
+        if($request->request->get('brand') != null)
+        {
+            $guitar->setBrand($brandRepository->findOneBy(['name' => $request->request->get('brand')]));
+        }
+        
+        if($imageFile)
+        {
+            $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
+            $safeFilename = $slugger->slug($originalFilename);
+            $newFilename = $safeFilename.'-'.uniqid().'.'.$imageFile->guessExtension();
+            $imageFile->move(
+                $this->getParameter('brochures_directory'),
+                $newFilename
+            );
+            $guitar->setImageName($newFilename);
+        }
+        
+        // return $this->json(['message' => 'Okay']);
+        $guitarRepository->save($guitar, true);
+        return $this->json(['message' => 'Okay']);
+    }
+
+    #[Route('/{id}/delete', name:'delete', methods:['DELETE'])]
+    public function delete(GuitarRepository $guitarRepository, Request $request, Guitar $guitar)
+    {
+        $guitarRepository->remove($guitar, true);
+
+        return $this->json(['message' => 'guitare supprimée']);
     }
 }

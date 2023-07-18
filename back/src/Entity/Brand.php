@@ -6,18 +6,22 @@ use App\Repository\BrandRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: BrandRepository::class)]
 class Brand
 {
+    #[Groups(['brand_list', 'list', 'detail'])]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Groups(['brand_list', 'list', 'detail'])]
     #[ORM\Column(length: 25)]
     private ?string $name = null;
 
+    #[Groups(['list'])]
     #[ORM\OneToMany(mappedBy: 'brand', targetEntity: Guitar::class)]
     private Collection $guitars;
 
