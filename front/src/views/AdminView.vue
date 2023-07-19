@@ -104,7 +104,7 @@ async function deleteGuitar(guitarId)
     try {
           const token = localStorage.getItem('token');
 
-          const response = await axios.delete(`http://localhost:8080/api/guitars/${guitarId}/delete`, {
+          const response = await axios.delete(`http://boris-guitarshop-b.souquiereboris-dev.fr/api/guitars/${guitarId}/delete`, {
             headers: {
                   Authorization: `Bearer ${token}`
               },
@@ -159,7 +159,7 @@ async function removeBrand(brand_id)
             }
         }
         
-        const response = await axios.delete(`http://localhost:8080/api/brand/${brand_id}/delete`, config)
+        const response = await axios.delete(`http://boris-guitarshop-b.souquiereboris-dev.fr/api/brand/${brand_id}/delete`, config)
 
         brandStore.fetchBrands();
         guitarStore.fetchAllGuitars();

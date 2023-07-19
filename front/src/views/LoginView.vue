@@ -39,7 +39,7 @@ export default {
       event.preventDefault();
 
       try {
-        const response = await fetch('http://localhost:8080/api/login_check', {
+        const response = await fetch('http://boris-guitarshop-b.souquiereboris-dev.fr/api/login_check', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

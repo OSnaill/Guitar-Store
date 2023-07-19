@@ -31,7 +31,7 @@ const submitForm= async () => {
             }
         }
         
-        const response = await axios.post('http://localhost:8080/api/brand/create', formData.value, config)
+        const response = await axios.post('http://boris-guitarshop-b.souquiereboris-dev.fr/api/brand/create', formData.value, config)
 
         
         brandStore.fetchBrands();
