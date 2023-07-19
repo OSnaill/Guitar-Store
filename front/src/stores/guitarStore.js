@@ -18,21 +18,21 @@ export const useGuitarStore = defineStore('guitarStore', {
 
     actions: {
       async fetchGuitars() {
-        const response = await axios.get('http://boris-guitarshop-b.souquiereboris-dev.fr/api/guitars/')
+        const response = await axios.get('https://boris-guitarshop-b.souquiereboris-dev.fr/api/guitars/')
         this.guitars = response.data
       },
       async fetchAllGuitars() {
-        const response = await axios.get('http://boris-guitarshop-b.souquiereboris-dev.fr/api/guitars/all')
+        const response = await axios.get('https://boris-guitarshop-b.souquiereboris-dev.fr/api/guitars/all')
         await this.getMaxGuitarValue()
         this.guitars = response.data
       },
       async fetchFilteredGuitars(brand) {
-          const response = await axios.get(`http://boris-guitarshop-b.souquiereboris-dev.fr/api/guitars/filter?brand=${brand}`)
+          const response = await axios.get(`https://boris-guitarshop-b.souquiereboris-dev.fr/api/guitars/filter?brand=${brand}`)
           console.log('data :',response.data)
           this.guitars = response.data
       },
       async fetchOneGuitar(id) {
-        const response = await axios.get(`http://boris-guitarshop-b.souquiereboris-dev.fr/api/guitars/${id}`)
+        const response = await axios.get(`https://boris-guitarshop-b.souquiereboris-dev.fr/api/guitars/${id}`)
         this.singleGuitar = await toRaw(response.data[0])
         this.isLoaded = true
         return this.singleGuitar
