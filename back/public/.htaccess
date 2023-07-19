@@ -48,6 +48,8 @@ DirectoryIndex index.php
     RewriteCond %{HTTP:Authorization} .+
     RewriteRule ^ - [E=HTTP_AUTHORIZATION:%0]
 
+    RewriteCond %{HTTPS} !=on
+    RewriteRule .* https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
     # Removes the /index.php/ part from a URL, if present
     RewriteCond %{ENV:REDIRECT_STATUS} =""
     RewriteRule ^index\.php(?:/(.*)|$) %{ENV:BASE}/$1 [R=301,L]
