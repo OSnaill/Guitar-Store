@@ -34,7 +34,7 @@ const submitForm= async () => {
             }
         }
         
-        const response = await axios.post(`http://localhost:8080/api/brand/${props.brand.id}/edit`, formData.value, config)
+        const response = await axios.post(`http://boris-guitarshop-b.souquiereboris-dev.fr/api/brand/${props.brand.id}/edit`, formData.value, config)
 
         
         brandStore.fetchBrands();

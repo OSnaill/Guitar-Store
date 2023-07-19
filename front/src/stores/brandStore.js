@@ -11,7 +11,7 @@ export const useBrandStore = defineStore('brandStore', {
 
     actions: {
       async fetchBrands() {
-        const response = await axios.get('http://localhost:8080/api/brand/')
+        const response = await axios.get('http://boris-guitarshop-b.souquiereboris-dev.fr/api/brand/')
         this.brands = response.data
       },
 
