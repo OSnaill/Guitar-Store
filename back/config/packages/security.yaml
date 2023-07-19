@@ -33,8 +33,8 @@ security:
 
     access_control:
         - { path: ^/api/login, roles: PUBLIC_ACCESS, requires_channel: https }
-        - { path: ^/api/guitars/*, roles: PUBLIC_ACCESS, requires_channel: https }
-        - { path: ^/api/brand/*, roles: PUBLIC_ACCESS, requires_channel: https }
+        - { path: ^/api/guitars/, roles: PUBLIC_ACCESS, requires_channel: https }
+        - { path: ^/api/brand/, roles: PUBLIC_ACCESS, requires_channel: https }
         - { path: ^/api/guitars/create,       roles: IS_AUTHENTICATED_FULLY, requires_channel: https }
         - { path: ^/api/guitars/edit,       roles: IS_AUTHENTICATED_FULLY, requires_channel: https }
         - { path: ^/api/guitars/delete,       roles: IS_AUTHENTICATED_FULLY, requires_channel: https }
