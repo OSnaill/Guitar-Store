@@ -31,9 +31,10 @@
 </template>
 <script setup>
 import { useGuitarStore }  from '@/stores/guitarStore.js'
-import { useBrandStore }  from '@/stores/BrandStore.js'
+import { useBrandStore }  from '@/stores/brandStore.js'
 import  ArticleCard  from '@/components/ArticleCard.vue'
 import {ref} from 'vue';
+
 const guitarStore = useGuitarStore()
 const brandStore = useBrandStore()
 
