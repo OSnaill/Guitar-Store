@@ -68,7 +68,7 @@ const submitForm= async () => {
         formDataToSend.append('price', formData.price);
         formDataToSend.append('image', formData.image);
 
-        const response = await axios.post(`http://boris-guitarshop-b.souquiereboris-dev.fr/api/guitars/${formDataToSend.get('id')}/edit`, formDataToSend, config)
+        const response = await axios.post(`https://boris-guitarshop-b.souquiereboris-dev.fr/api/guitars/${formDataToSend.get('id')}/edit`, formDataToSend, config)
 
         console.log(response)
         guitarStore.fetchGuitars();   
