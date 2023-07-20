@@ -40,9 +40,7 @@ const formData = reactive({
 const guitarStore = useGuitarStore();
 const brandStore = useBrandStore();
 function onChangeFile(e) {
-    console.log(e.target.files[0])
     formData.image = e.target.files[0]
-    console.log(formData.image)
 }
 // Formulaire d'ajout de guitare
 const submitForm= async () => {
@@ -62,12 +60,11 @@ const submitForm= async () => {
         formDataToSend.append('price', formData.price);
         formDataToSend.append('image', formData.image);
 
-        console.log(formDataToSend)
         const response = await axios.post('https://boris-guitarshop-b.souquiereboris-dev.fr/api/guitars/create', formDataToSend, config)
 
         console.log(response)
         console.log(formData.value)
-        guitarStore.fetchGuitars();   
+        guitarStore.fetchAllGuitars();   
 }
 </script>
 <script>

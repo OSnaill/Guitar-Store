@@ -18,7 +18,7 @@ export const useGuitarStore = defineStore('guitarStore', {
 
     actions: {
       async fetchGuitars() {
-        const response = await axios.get('https://boris-guitarshop-b.souquiereboris-dev.fr/api/guitars/')
+        const response = await axios.get('https://boris-guitarshop-b.souquiereboris-dev.fr/api/guitars/',{ Proxy: {protocol: 'https'}})
         this.guitars = response.data
       },
       async fetchAllGuitars() {
@@ -49,15 +49,20 @@ export const useGuitarStore = defineStore('guitarStore', {
         this.cartCount--
       },
       async getMaxGuitarValue() {
-        let max = 0
         this.guitars.forEach(guitar => {
-          if(guitar.price >= max)
+          if(parseInt(guitar.price) >= this.maxValue)
           {
-            max = guitar.price
+            console.log('max before', this.maxValue)
+            this.maxValue = guitar.price
+            console.log('guitar price', guitar.price)
+            console.log('max after', this.maxValue)
+            
           }
+
+          return this.maxValue + 100
        
         });
-        this.maxValue = max
+        
       },
       async getCartAmount()
       {
