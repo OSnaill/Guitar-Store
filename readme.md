@@ -34,7 +34,8 @@ composer install
 `
 
 Créer un fichier .env.local à la racine du dossier /back
-`
+
+```
 DATABASE_URL="mysql://user:mdp@127.0.0.1:3306/guitar_store?serverVersion=10.11.2-MariaDB&charset=utf8mb4"
 
 ###> lexik/jwt-authentication-bundle ###
@@ -43,17 +44,21 @@ JWT_PUBLIC_KEY=%kernel.project_dir%/config/jwt/public.pem
 JWT_PASSPHRASE=
 CORS_ALLOW_ORIGIN=*
 ###< lexik/jwt-authentication-bundle ###
-`
+```
+
 Générer la clé jwt:
 `
 php bin/console lexik:jwt:generate-keypair
 `
 
 Créer votre base de données:
+
 `
 php bin/console d:d:c
 `
+
 Faites les migrations de votre bdd:
+
 `
 php bin/console do:mi:mi
 `
