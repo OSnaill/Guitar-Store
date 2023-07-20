@@ -134,24 +134,11 @@ function displayedEditBrand(brand_id)
     displayedBrand.value = brand_id
 }
 
-let isGuitarFormOpen = false;
-function switchGuitarFormDisplay() {
-    if(isGuitarFormOpen == true)
-    {
-        isGuitarFormOpen = false
-    }
-    else if(isGuitarFormOpen == false)
-    {
-        isGuitarFormOpen = true
-    }
-    console.log(isGuitarFormOpen)
-}
-
 
 async function removeBrand(brand_id)
 {
     console.log('allo ?')
-    // try {
+    try {
         const token = localStorage.getItem('token');
         const config = {
             headers: {
@@ -164,9 +151,9 @@ async function removeBrand(brand_id)
         brandStore.fetchBrands();
         guitarStore.fetchAllGuitars();
         // console.log(response);
-    // } catch {
-    //     console.error('echec delete')
-    // }
+    } catch {
+        console.error('echec')
+    }
 }
 
 </script>

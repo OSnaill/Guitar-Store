@@ -12,17 +12,17 @@
                                 <option :value="brand.name" v-for="brand in brandStore.brands">  {{ brand.name }}</option>
                             </select>
                         </div>
-                        <div class="flex flex-col">
+                        <!-- <div class="flex flex-col">
                             <label for=""> Prix Maximal </label>
-                            <input type="range" name="" id="" :max="guitarStore.maxValue" min="0" step="1" v-model="rangePrice">
-                            {{rangePrice}}
-                        </div>
+                            <input type="range" name="" id="" :max="guitarStore.maxValue" min="0" step="1" v-model="rangePrice" @change="getFilteredGuitar()">
+                            Prix: {{ rangePrice }} €
+                        </div> -->
                     </div>
                 </div>
-                <div class="md:col-span-3  ">
+                <div class="md:col-span-3 ">
                     <h4 class="p-4">Articles</h4>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-2 overflow-y-scroll custom-scrollbar max-h-[600px]  ">
-                        <ArticleCard :guitar="article" class="card" v-for="article in guitarStore.guitars" :class="rangePrice <= 0 ? 'block' : rangePrice < article.price ? 'hidden' : 'block' "/>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 overflow-y-scroll custom-scrollbar max-h-[650px]  ">
+                        <ArticleCard :guitar="article" class="card" v-for="article in guitarStore.guitars"/>
                     </div>
                 </div>
             </div>
