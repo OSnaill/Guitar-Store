@@ -82,6 +82,8 @@ Installer les dépendances
 npm install
 `
 
+Remplacez les requêtes Axios vers localhost:8000
+
 lancez vue js :
 `
 npm run dev
